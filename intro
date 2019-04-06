@@ -1,0 +1,19 @@
+
+get current timezone in nodejs 
+var x = new Date();
+var offset= -x.getTimezoneOffset();
+console.log((offset>=0?"+":"-")+parseInt(offset/60)+":"+offset%60)
+
+
+
+අප භාවිතා කරන පද්ධතියේ current time එක ලබා ගැනීමට පහත සඳහන් object එක භාවිතා කරනු ලැබේ.
+මෙහි බැලු බැල්මට එහි ප්‍රතිඵලය  ලැබෙන්නේ current time GMT 0 හෙවත් ගිනිච් රේඛාවේ වෙලාවය.
+var date= new Date();
+> 2019-04-06T04:11:26.767Z
+නමුත් එය අසත්‍යය.එසේ පෙනෙන්නේ දර්ශනය වන්නේ ප්‍රතිඵලයෙන් කොටසක් නිසාවෙනි. 
+ob ප්‍රතිඵලය string වලට පරිවර්තනය කිරීමෙන් සම්පුර්ණ දත්තය ලබාගෙන, ප්‍රතිඵලය local time එක බව තහවුරු කරගත හැකිය.
+date.toString()
+>Sat Apr 06 2019 07:11:26 GMT+0300 (Moscow Standard Time)
+එමෙන්ම time ප්‍රතිඵලය තත්පර වලට පරිවර්තනයේදී ගැනෙනුයේ 1979 සිට එම local time එක දක්වා ඇති තත්පර ගණනය .
+විවිධ local time වල තත්පර ගණන් නැවත වෙනස් local time එකක දිනයකට පරිවර්තනයේදී ගැටළු මතු වේ. 
+එම නිසා සියලුම තත්කාල GMT 0 ට පරිවර්තනය කිරීම කල යුතුය.
