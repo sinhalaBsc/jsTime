@@ -1,8 +1,5 @@
 
-get current timezone in nodejs 
-var x = new Date();
-var offset= -x.getTimezoneOffset();
-console.log((offset>=0?"+":"-")+parseInt(offset/60)+":"+offset%60)
+
 
 
 
@@ -17,3 +14,41 @@ date.toString()
 එමෙන්ම time ප්‍රතිඵලය තත්පර වලට පරිවර්තනයේදී ගැනෙනුයේ 1979 සිට එම local time එක දක්වා ඇති තත්පර ගණනය .
 විවිධ local time වල තත්පර ගණන් නැවත වෙනස් local time එකක දිනයකට පරිවර්තනයේදී ගැටළු මතු වේ. 
 එම නිසා සියලුම තත්කාල GMT 0 ට පරිවර්තනය කිරීම කල යුතුය.
+
+
+var gmtLocal = new Date(1970,0,1); ---->A
+var gmtZero = new Date(0);
+var date = new Date();
+
+var msec = date.getTime();
+var sec  = Math.floor(msec/1000);
+
+console.log('date :',date);
+>date : 2019-04-06T05:27:59.676Z
+
+console.log('sec     :',sec);
+>sec     : 1554528479
+
+console.log('sec mi  :',sec-(60*60*3)); // moscow +3 GMT
+>sec mi  : 1554517679  ---->1
+
+var gg=gmtLocal.setSeconds(sec);
+console.log('gg     :',gg/1000);
+>gg     : 1554517679  ----->2
+
+console.log('gmt     :',gmtLocal);
+>gmt     : 2019-04-06T02:27:59.000Z
+
+(1) කාල පරතරය දන්නා නිසා ගණනය කරගත් නිවැරදි ගිනිච් වෙලාව සහ (2) කේ ප්‍රතිඵල සමාන වන බැවින් 
+(A)සමීකරණය මගින් GMT නොදන්නා zone එකක වෙලාව උපයෝගයෙන් එම වෙලාවේදී ගිනිච් කාලය ලබාගත හැකිය. 
+එමනිසා ඕනෑම zone කාලයට අදාළ ගිනිච් වෙලාව
+var gmtLocal = new Date(1970,0,1);
+gmtLocal.setSeconds(sec);
+var GMT0 =gmtLocal;
+
+*************************************************************************************************
+get current timezone in nodejs 
+var x = new Date();
+var offset= -x.getTimezoneOffset();
+console.log((offset>=0?"+":"-")+parseInt(offset/60)+":"+offset%60)
+
